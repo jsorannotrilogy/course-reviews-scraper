@@ -86,26 +86,38 @@ var data = require('./schools');
         cleanRow.push(urlOb.trilogy)
 
       // console.log((reviewId + 1) + ")")
-
         var review = $(this).children("div");
     // ============================ REVIEW DATE ============================ //
 
+        if (!(
+          review &&
+          review[0].children[2] &&
+          review[0].children[2].children[0] && 
+          review[0].children[2].children[0].data))
+        {
+          console.log('here is the problem');
+          cleanRow.push(reviewDate);
+        }
         // children[2] gives us the object inside review that holds review-date information
         var reviewDate = review[0].children[2].children[0].data;
         // console.log(reviewDate);
-        cleanRow.push(reviewDate);
 
     // ======================= Review Details =========================== //
         
       var reviewDetails = review[0].children[3].children.slice(1);
+      console.log('fuck my asshole juanita')
 
       var location = "";
       var course = "";
       var verification = "";
 
        for (var z = 0; z < reviewDetails.length; z++) {
-
+          if (!reviewDetails && reviewDetails[z] && reviewDetails[z].children) {
+            console.log('SHIT');
+            continue;
+          }
           var details = reviewDetails[z].children[0];
+          console.log('fuck everyone elses asshole')
           // console.log(details);
           if(details){
             var data = details.data
@@ -125,10 +137,13 @@ var data = require('./schools');
               }
             }else{
               // console.log('details', details.children[0].data)
-              var data2 = details.children[0].data;
-              if(data2.indexOf('Verified') >= 0){
-                verification = data2;
-                // console.log('verif', verification)
+              console.log('hwawnita sup');
+              if (details.children) {
+                var data2 = details.children[0].data;
+                if(data2.indexOf('Verified') >= 0){
+                  verification = data2;
+                  // console.log('verif', verification)
+                }
               }
             }
           }
@@ -147,7 +162,8 @@ var data = require('./schools');
     // ======================== RATING CATEGORIES/STARS =========================== //
 
       // children[4] is associated with the .ratings class that holds rating information
-      // each .rating class has 3 rows and we skip over the 1st row 
+      // each .rating class has 3 rows and we skip over the 1st row
+      if (rating) { 
       var rating = review[0].children[4].children.slice(1);
       for (var i = 0; i < rating.length; i++) {  
 
@@ -266,7 +282,7 @@ var data = require('./schools');
         });
 
       // console.log("--------------------------------------------------------");
-      });
+      }});
         scrapeCounter++;
         runScrape();
     });

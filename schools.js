@@ -166,7 +166,7 @@ const schools = [
         'url': 'https://www.coursereport.com/schools/university-of-arizona-coding-boot-camp',
         'category': 'Arizona',
         'trilogy': 'TRILOGY'
-      },
+      }
       // { 'school': 'General Assembly',
       //   'url': 'https://www.coursereport.com/schools/general-assembly',
       //   'category': 'GENERAL',
