@@ -67,14 +67,15 @@ var data = require('./schools');
         .wait(1000)
         .evaluate(function() {
             return document.body.innerHTML;
-        }).end().then(function(html) {
-          if (html == undefined) {
+        }).end().then (function(html) {
+          if (html === 'undefined') {
             console.log('========================');
             console.log('html not there!');
             console.log(arg);
             console.log('========================');
             return;
           }
+          
 
       var $ = cheerio.load(html);
 
@@ -273,16 +274,19 @@ var data = require('./schools');
           cleanRow.push(lifeChangeCount)
         }
 
-        fs.appendFile('bootcamp-reviews.csv', cleanRow + "\n" , 'utf8', function (err) {
+        
+
+      // console.log("--------------------------------------------------------");
+      }
+      console.log("nice comment");
+        fs.appendFile('bootcamp-reviews.csv', cleanRow.join("\n") + "\n" , 'utf8', function (err) {
           if (err) {
             console.log('Some error occured - file either not saved or corrupted file saved.');
           } else{
-            //console.log('It\'s saved!');
+            console.log('It\'s saved!');
           }
         });
-
-      // console.log("--------------------------------------------------------");
-      }});
+    });
         scrapeCounter++;
         runScrape();
     });
